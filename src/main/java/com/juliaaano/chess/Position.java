@@ -16,14 +16,14 @@ class Position {
 
     private Position(final char file, final int rank) {
 
+        if (!files.contains(file))
+            throw new IndexOutOfBoundsException();
+
         this.file = files.indexOf(file) + 1;
         this.rank = rank;
     }
 
-    private static Position at(final char file, final int rank) {
-
-        if (!files.contains(file))
-            throw new IndexOutOfBoundsException();
+    public static Position at(final char file, final int rank) {
 
         return new Position(file, rank);
     }

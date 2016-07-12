@@ -43,7 +43,7 @@ class Pawn extends Piece {
         final Position oneForward = position.move(0, oneMove);
         board.getSquareAt(oneForward).ifPresent(square -> {
 
-            if (!square.piece().isPresent())
+            if (!square.hasPiece())
                 positions.add(oneForward);
         });
 
@@ -52,7 +52,7 @@ class Pawn extends Piece {
             final Position twoForward = oneForward.move(0, oneMove);
             board.getSquareAt(twoForward).ifPresent(square -> {
 
-                if (!square.piece().isPresent())
+                if (!square.hasPiece())
                     positions.add(twoForward);
             });
         }
@@ -88,7 +88,7 @@ class Pawn extends Piece {
         final Optional<Square> square = board.getSquareAt(position);
 
         return square.isPresent()
-                && square.get().piece().isPresent()
+                && square.get().hasPiece()
                 && square.get().piece().get().isEnemy(this);
     }
 

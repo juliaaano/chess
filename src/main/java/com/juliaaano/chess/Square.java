@@ -11,7 +11,12 @@ public class Square {
         return Optional.ofNullable(piece);
     }
 
-    public boolean set(final Piece piece) {
+    boolean hasPiece() {
+
+        return piece != null;
+    }
+
+    boolean set(final Piece piece) {
 
         this.piece = piece;
         return true;

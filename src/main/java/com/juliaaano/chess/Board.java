@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.juliaaano.chess.Position.at;
 import static java.util.stream.Collectors.toSet;
 
 class Board {
@@ -19,15 +20,14 @@ class Board {
 
             for (final char file : Position.files()) {
 
-                final Position position = Position.at(file + "" + row);
-                squares.put(position, new Square());
+                squares.put(at(file, row), new Square());
             }
         }
     }
 
     boolean add(final Piece piece) {
 
-        return !squares.get(piece.position()).piece().isPresent()
+        return !hasPieceAt(piece.position())
                 && squares.get(piece.position()).set(piece);
     }
 
@@ -40,17 +40,15 @@ class Board {
 
         final Square square = squares.get(position);
 
-        return square != null
-                && square.piece().isPresent();
+        return square != null && square.hasPiece();
     }
 
     Set<String> allMoves() {
 
         return squares.values().stream()
-                .filter(square -> square.piece().isPresent())
+                .filter(Square::hasPiece)
                 .map(Square::piece)
                 .map(piece -> piece.get().print())
                 .collect(toSet());
     }
-
 }
